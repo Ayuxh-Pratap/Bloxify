@@ -54,11 +54,20 @@ export async function middleware(request: NextRequest) {
         }
     )
 
+    await supabase.auth.getSession();
+
     const { data } = await supabase.auth.getUser()
     
-    if (data.session)
-
-    return response
+    if (data.session) {
+		if (
+			// protect this page only admin can access this /dashboard/members
+			data.session.user.user_metadata.role !== "admin"
+		) {
+			return NextResponse.redirect(new URL("/", request.url));
+		}
+	} else {
+		return NextResponse.redirect(new URL("/", request.url));
+	}
 }
 
 export const config = {

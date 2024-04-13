@@ -1,7 +1,10 @@
 import React from 'react'
+import Navlinks from './components/Navlinks'
 
 export default function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <div>
+      dashboard
+    </div>
   )
 }
